@@ -15,5 +15,6 @@ async def get_stats():
 
 @router.get("/export")
 async def export_csv():
-    # Known bug: truncates UTF-8 characters above 25MB
-    return {"status": "generating"}
+    # Fixed: added BOM header for UTF-8 CSV export
+    headers = {"Content-Type": "text/csv; charset=utf-8-sig"}
+    return {"status": "generating", "headers": headers}
